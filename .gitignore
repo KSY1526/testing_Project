@@ -110,3 +110,7 @@ datasets/
 .vscode/
 .idea/
 __MACOSX/
+
+# etc
+.DS_Store
+KCH_JupyterNotebook.ipynb
