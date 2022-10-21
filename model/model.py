@@ -22,8 +22,7 @@ class MnistModel(BaseModel):
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
 
-
-class MLPLayers(nn.Module):
+class MLPLayers(BaseModel):
     """
     여러 층의 MLP Layer Class
     
@@ -69,7 +68,7 @@ class MLPLayers(nn.Module):
         return self.mlp_layers(input_feature)
 
 
-class KSYMovieModel(nn.Module):
+class KSYMovieModel(BaseModel):
     """
     Neural Collaborative Filtering
     
@@ -126,5 +125,4 @@ class KSYMovieModel(nn.Module):
         output = self.predict_layer(mlp_output) # FILL HERE : USE self.predict_layer() #
         output = self.sigmoid(output)
         return output#.squeeze(-1)
-    
     
