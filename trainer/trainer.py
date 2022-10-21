@@ -3,7 +3,7 @@ import torch
 from torchvision.utils import make_grid
 from base import BaseTrainer
 from utils import inf_loop, MetricTracker
-
+import wandb
 
 class Trainer(BaseTrainer):
     """
@@ -29,6 +29,15 @@ class Trainer(BaseTrainer):
 
         self.train_metrics = MetricTracker('loss', *[m.__name__ for m in self.metric_ftns], writer=self.writer)
         self.valid_metrics = MetricTracker('loss', *[m.__name__ for m in self.metric_ftns], writer=self.writer)
+        self._wandb_init()
+
+    def _wandb_init(self):
+        wandb.init(project="따봉도치_프로젝트", entity="thumbs-up")
+        wandb.config = {
+            "learning_rate": self.config['optimizer']['args']['lr'],
+            "epochs": self.config['trainer']['epochs'],
+            "batch_size": self.config['data_loader']['args']['batch_size']
+        }
 
     def _train_epoch(self, epoch):
         """
@@ -69,6 +78,8 @@ class Trainer(BaseTrainer):
 
         if self.lr_scheduler is not None:
             self.lr_scheduler.step()
+
+        wandb.log({"train_loss": loss})
         return log
 
     def _valid_epoch(self, epoch):
@@ -90,6 +101,8 @@ class Trainer(BaseTrainer):
                 self.valid_metrics.update('loss', loss.item())
                 for met in self.metric_ftns:
                     self.valid_metrics.update(met.__name__, met(output, target))
+
+        wandb.log({"train_loss": loss})
 
         # add histogram of model parameters to the tensorboard
         for name, p in self.model.named_parameters():
