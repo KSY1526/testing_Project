@@ -1,7 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
 from base import BaseModel
-
+from torch.nn.init import normal_
 
 class MnistModel(BaseModel):
     def __init__(self, num_classes=10):
@@ -20,3 +20,48 @@ class MnistModel(BaseModel):
         x = F.dropout(x, training=self.training)
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
+
+class KSYMovieModel(BaseModel):
+    """
+    여러 층의 MLP Layer Class
+    
+    Args:
+        - layers: (List) input layer, hidden layer, output layer의 node 수를 저장한 List.
+                ex) [5, 4, 3, 2] -> input layer: 5 nodes, output layer: 2 nodes, hidden layers: 4 nodes, 3 nodes
+        - dropout: (float) dropout 확률
+        - activation: (str) activation function의 함수. Default: 'relu'
+    Shape:
+        - Input: (torch.Tensor) input features. Shape: (batch size, # of input nodes)
+        - Output: (torch.Tensor) output features. Shape: (batch size, # of output nodes)
+    """
+    def __init__(self, layers, dropout = 0, activation='relu'):
+        super(KSYMovieModel, self).__init__()
+        
+        # initialize Class attributes
+        self.layers = layers
+        self.n_layers = len(self.layers) - 1
+        self.dropout = dropout
+        self.activation = activation
+        
+        # define layers
+        mlp_modules = list()
+        for i in range(self.n_layers):
+            mlp_modules.append(nn.Dropout(p=self.dropout))
+            input_size = self.layers[i]
+            output_size = self.layers[i+1]
+            mlp_modules.append(nn.Linear(input_size, output_size))
+            mlp_modules.append(nn.ReLU())
+
+        self.mlp_layers = nn.Sequential(*mlp_modules)
+        
+        self.apply(self._init_weights)
+        
+    # initialize weights
+    def _init_weights(self, module):
+        if isinstance(module, nn.Linear):
+            normal_(module.weight.data, 0, 0.01)
+            if module.bias is not None:
+                module.bias.data.fill_(0.0)
+    
+    def forward(self, input_feature):
+        return self.mlp_layers(input_feature)

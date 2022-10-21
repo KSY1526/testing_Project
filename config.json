@@ -1,13 +1,15 @@
 {
-    "name": "Mnist_LeNet",
+    "name": "First_Movie_DeepLearning",
     "n_gpu": 1,
 
     "arch": {
-        "type": "MnistModel",
-        "args": {}
+        "type": "KSYMovieModel",
+        "args": {
+            "layers" : [256, 64]
+        }
     },
     "data_loader": {
-        "type": "MnistDataLoader",
+        "type": "MovieDataLoader",
         "args":{
             "data_dir": "data/",
             "batch_size": 128,
