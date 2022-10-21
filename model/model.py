@@ -22,6 +22,7 @@ class MnistModel(BaseModel):
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
 
+
 class MLPLayers(nn.Module):
     """
     여러 층의 MLP Layer Class
