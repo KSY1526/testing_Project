@@ -34,7 +34,7 @@ class KSYMovieModel(BaseModel):
         - Input: (torch.Tensor) input features. Shape: (batch size, # of input nodes)
         - Output: (torch.Tensor) output features. Shape: (batch size, # of output nodes)
     """
-    def __init__(self, layers, dropout, activation='relu'):
+    def __init__(self, layers, dropout = 0, activation='relu'):
         super(KSYMovieModel, self).__init__()
         
         # initialize Class attributes
@@ -65,4 +65,3 @@ class KSYMovieModel(BaseModel):
     
     def forward(self, input_feature):
         return self.mlp_layers(input_feature)
-        
