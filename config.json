@@ -5,7 +5,8 @@
     "arch": {
         "type": "KSYMovieModel",
         "args": {
-            "layers" : [256, 64]
+            "layers" : [256, 64],
+            "emb_dim" : 512
         }
     },
     "data_loader": {
