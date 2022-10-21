@@ -114,3 +114,5 @@ __MACOSX/
 # etc
 .DS_Store
 KCH_JupyterNotebook.ipynb
+KSY_jupyter.ipynb
+LJH_jupyter.ipynb

@@ -5,7 +5,6 @@ import pandas as pd
 from torch.utils.data import TensorDataset, DataLoader
 import torch
 
-
 class MnistDataLoader(BaseDataLoader):
     """
     MNIST data loading demo using BaseDataLoader
@@ -22,7 +21,7 @@ class MnistDataLoader(BaseDataLoader):
 
 class MovieDataLoader(BaseDataLoader):
     """
-    MovieLens 100k Dataset modified data loading demo using BaseDataLoader
+    MNIST data loading demo using BaseDataLoader
     """
     def __init__(self, data_dir, batch_size, shuffle=True, validation_split=0.0, num_workers=1, training=True):
 
