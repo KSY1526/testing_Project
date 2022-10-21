@@ -1,11 +1,8 @@
 from torchvision import datasets, transforms
 from base import BaseDataLoader
-import numpy as np
-import pandas as pd
-from torch.utils.data import TensorDataset, DataLoader
-import torch
 
-class MnistDataLoader(BaseDataLoader):
+
+class MovieDataLoader(BaseDataLoader):
     """
     MNIST data loading demo using BaseDataLoader
     """
