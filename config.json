@@ -4,7 +4,9 @@
 
     "arch": {
         "type": "KSYMovieModel",
-        "args": {}
+        "args": {
+            "layers" : [256, 64]
+        }
     },
     "data_loader": {
         "type": "MovieDataLoader",
