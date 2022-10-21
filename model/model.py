@@ -124,6 +124,6 @@ class KSYMovieModel(nn.Module):
         mlp_output = self.mlp_layers(input_feature) # FILL HERE : USE self.mlp_layers() #
         output = self.predict_layer(mlp_output) # FILL HERE : USE self.predict_layer() #
         output = self.sigmoid(output)
-        return output.squeeze(-1)
+        return output#.squeeze(-1)
     
     

@@ -27,9 +27,9 @@
             "amsgrad": true
         }
     },
-    "loss": "nll_loss",
+    "loss": "movie_loss",
     "metrics": [
-        "accuracy", "top_k_acc"
+        "accuracy"
     ],
     "lr_scheduler": {
         "type": "StepLR",
