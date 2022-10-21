@@ -65,3 +65,4 @@ class KSYMovieModel(BaseModel):
     
     def forward(self, input_feature):
         return self.mlp_layers(input_feature)
+        
